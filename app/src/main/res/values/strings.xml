@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Książka kucharska</string>
+    <string name="servings_list_message">Porcje: %s</string>
+    <string name="servings_details_message"><![CDATA[<b>Liczba porcji: </b>%s]]></string>
+    <string name="prepare_time_list_message">%s</string>
+    <string name="prepare_time_details_message"><![CDATA[<b>Czas przygotowania: </b>%s]]></string>
+    <string name="calories_details_message"><![CDATA[<b>Kaloryczność: </b>%s]]></string>
+    <string name="bake_time_details_message"><![CDATA[<b>Czas pieczenia: </b>%s]]></string>
+    <string name="cook_time_details_message"><![CDATA[<b>Czas gotowania: </b>%s]]></string>
+    <string name="diet_details_message"><![CDATA[<b>Dieta: </b>%s]]></string>
+    <string name="ingredients_details_title"><![CDATA[<b>Składniki: </b>%s \n]]></string>
+    <string name="ingredients_details_element"><![CDATA[&#8226; %s \n]]></string>
+
+    <string name="timers_not_found_message">Brak minutników</string>
+
+    <string name="details_fragment">Szczegóły</string>
+    <string name="timers_fragment">Minutniki</string>
+
+    <string name="timer_default_name">Timer</string>
+</resources>
