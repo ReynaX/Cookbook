@@ -37,8 +37,11 @@ class ObservableTimer {
     fun startTimer(start: Long) {
         state = TimerState.RUNNING
         this.start = start
-        countDownTimer = object : CountDownTimer(start - secondsPassed * 1000, 1000) {
+        this.secondsPassed = 0L
+
+        countDownTimer = object : CountDownTimer(start, 1000) {
             var secondsFull = start / 1000
+
             override fun onTick(millisUntilFinished: Long) {
 
                 val seconds: Int = ((secondsFull - secondsPassed) % 60).toInt()

@@ -57,7 +57,8 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
                 if (!observableTimer.isTimerRunning()) {
                     val millis = convertToMillis()
                     if (millis != 0) {
-                        timerProgressView.max = millis
+                        if(observableTimer.isTimerStopped())
+                            timerProgressView.max = millis
                         observableTimer.startTimer(millis.toLong())
                     }
                 } else observableTimer.playTimer()
