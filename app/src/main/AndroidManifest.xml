@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,6 +16,7 @@
         <activity
             android:name=".activities.MealDetailsActivity"
             android:exported="false"
+            android:windowSoftInputMode="adjustNothing"
             />
         <activity
             android:name=".activities.MainActivity"

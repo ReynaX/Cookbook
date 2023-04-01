@@ -5,7 +5,17 @@
     android:layout_height="match_parent"
     android:background="#212121">
 
-    <EditText
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/timer_layout_fab_remove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:srcCompat="@drawable/baseline_remove" />
+
+
+    <TextView
         android:id="@+id/timer_layout_tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,19 +31,20 @@
 
         <ProgressBar
             style="?android:progressBarStyleHorizontal"
-            android:id="@+id/progressBar"
+            android:id="@+id/timer_layout_pb_value"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:indeterminate="false"
             android:progressDrawable="@drawable/progress_bar_circle" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/timer_layout_tv_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:textColor="@color/white"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            android:text="@string/timer_default_value"/>
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         app:srcCompat="@drawable/baseline_play" />
 
@@ -50,7 +61,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         app:srcCompat="@drawable/baseline_pause" />
 

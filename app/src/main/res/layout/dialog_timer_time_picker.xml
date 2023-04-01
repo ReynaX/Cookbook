@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="#212121">
+
+
+    <NumberPicker
+        android:id="@+id/timer_np_hours_picker"
+        android:theme="@style/NumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="16dp"
+        android:value="0" />
+
+    <NumberPicker
+        android:id="@+id/timer_np_minutes_picker"
+        android:theme="@style/NumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:value="0" />
+
+    <NumberPicker
+        android:id="@+id/timer_np_seconds_picker"
+        android:theme="@style/NumberPicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="16dp"
+        android:value="0"
+/>
+
+</LinearLayout>

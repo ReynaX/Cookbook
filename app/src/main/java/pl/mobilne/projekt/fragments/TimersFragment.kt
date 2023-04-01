@@ -15,7 +15,7 @@ import pl.mobilne.projekt.R
 import pl.mobilne.projekt.adapters.TimersAdapter
 
 class TimersFragment : Fragment() {
-    private lateinit var addButton : FloatingActionButton
+    private lateinit var addButton: FloatingActionButton
     private lateinit var noTimersTextView: TextView
     private lateinit var timers: RecyclerView
     private lateinit var timersAdapter: TimersAdapter
@@ -30,14 +30,15 @@ class TimersFragment : Fragment() {
         noTimersTextView = view.findViewById(R.id.timer_fr_tv_no_timers)
         timers = view.findViewById(R.id.timer_fr_recycler_view)
 
-        timersAdapter = TimersAdapter(listOf(), view.context)
+        timersAdapter = TimersAdapter(mutableListOf(), view.context)
         timers.adapter = timersAdapter
-        timers.layoutManager = LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
+        timers.layoutManager =
+            LinearLayoutManager(view.context, LinearLayoutManager.VERTICAL, false)
         setupOnClickListeners()
         return view;
     }
 
-    private fun setupOnClickListeners(){
+    private fun setupOnClickListeners() {
         addButton.setOnClickListener {
             timersAdapter.addTimer()
         }
