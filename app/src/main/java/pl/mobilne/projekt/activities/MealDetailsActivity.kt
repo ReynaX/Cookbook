@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import pl.mobilne.projekt.R
+import pl.mobilne.projekt.adapters.TimersAdapter
 import pl.mobilne.projekt.fragments.MealDetailsFragment
 import pl.mobilne.projekt.fragments.TimersFragment
 
@@ -17,6 +18,8 @@ class MealDetailsActivity : AppCompatActivity() {
     private val detailsFragment : MealDetailsFragment = MealDetailsFragment()
     private val timerFragment : TimersFragment = TimersFragment()
     private var fragmentLoaded : FragmentLoaded = FragmentLoaded.DETAILS
+    private lateinit var timersAdapter: TimersAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,8 @@ class MealDetailsActivity : AppCompatActivity() {
         display?.setDisplayHomeAsUpEnabled(true)
 
         detailsFragment.arguments = intent.extras
+
+        timersAdapter = TimersAdapter(mutableListOf(), this.applicationContext)
         supportFragmentManager.beginTransaction().add(R.id.details_cl_main_layout, detailsFragment).commit()
     }
 
@@ -38,6 +43,7 @@ class MealDetailsActivity : AppCompatActivity() {
         val id = item.itemId
         if (id == R.id.details_menu_change_fr) {
             if(fragmentLoaded == FragmentLoaded.DETAILS) {
+                timerFragment.setAdapter(timersAdapter)
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.details_cl_main_layout, timerFragment).addToBackStack(null)
                     .commit()

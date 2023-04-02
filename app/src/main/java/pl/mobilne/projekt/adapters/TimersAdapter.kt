@@ -2,7 +2,9 @@ package pl.mobilne.projekt.adapters
 
 import android.app.AlertDialog
 import android.content.Context
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.NumberPicker
 import android.widget.ProgressBar
@@ -16,7 +18,7 @@ import pl.mobilne.projekt.data.ObservableTimer
 class TimersAdapter(private var items: MutableList<ObservableTimer>, private val context: Context) :
     RecyclerView.Adapter<TimersAdapter.ViewHolder>() {
 
-    var listener: OnItemClickListener = object : OnItemClickListener {
+    private var listener: OnItemClickListener = object : OnItemClickListener {
         override fun onItemClick(position: Int) {
             if (position >= 0 && position < items.size) {
                 items.removeAt(position)
@@ -48,9 +50,10 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
         }
 
         fun bind(observableTimer: ObservableTimer, onItemClickListener: OnItemClickListener) {
+            // Set timer layout values before first tick
+            setObservableValues(observableTimer)
             observableTimer.addObserver {
-                timerValueView.text = observableTimer.getValue()
-                timerProgressView.progress = observableTimer.getProgress()
+                setObservableValues(observableTimer)
             }
 
             playButton.setOnClickListener {
@@ -58,7 +61,7 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
                     val millis = convertToMillis()
                     if (millis != 0) {
                         if(observableTimer.isTimerStopped())
-                            timerProgressView.max = millis
+                            observableTimer.setMaxProgress(millis)
                         observableTimer.startTimer(millis.toLong())
                     }
                 } else observableTimer.playTimer()
@@ -144,6 +147,12 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
             if (s.size != 3)
                 return 0
             return s[0].toInt() * 1000 * 3600 + s[1].toInt() * 1000 * 60 + s[2].toInt() * 1000
+        }
+
+        private fun setObservableValues(observableTimer: ObservableTimer){
+            timerValueView.text = observableTimer.getValue()
+            timerProgressView.progress = observableTimer.getProgress()
+            timerProgressView.max = observableTimer.getMaxProgress()
         }
     }
 

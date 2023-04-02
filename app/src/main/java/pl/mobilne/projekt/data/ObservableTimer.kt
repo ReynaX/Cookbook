@@ -32,14 +32,14 @@ class ObservableTimer {
     private var start = 0L
     private var name = "Minutnik"
     private var secondsPassed = 0L
+    private var maxProgress = 0
     private lateinit var countDownTimer: CountDownTimer
 
     fun startTimer(start: Long) {
-        state = TimerState.RUNNING
+        this.state = TimerState.RUNNING
         this.start = start
         this.secondsPassed = 0L
-
-        countDownTimer = object : CountDownTimer(start, 1000) {
+        countDownTimer = object : CountDownTimer(this.start, 1000) {
             var secondsFull = start / 1000
 
             override fun onTick(millisUntilFinished: Long) {
@@ -63,6 +63,7 @@ class ObservableTimer {
                 secondsPassed = 0L
                 progress = 0
                 notifyObservers()
+                Log.d("Timer", "Finished")
                 TimerUtil.vibrate(context)
             }
         }
@@ -104,6 +105,13 @@ class ObservableTimer {
 
     fun setProgress(progress: Int) {
         this.progress = progress;
+        notifyObservers()
+    }
+
+    fun getMaxProgress(): Int = maxProgress
+
+    fun setMaxProgress(maxProgress: Int) {
+        this.maxProgress = maxProgress;
         notifyObservers()
     }
 
