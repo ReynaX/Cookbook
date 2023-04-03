@@ -17,6 +17,10 @@ import pl.mobilne.projekt.listeners.MealDetailsListener
 import java.io.IOException
 
 class MealListFragment : Fragment() {
+
+    private var recyclerView: RecyclerView? = null;
+    private var adapter: MealBoxContentAdapter? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -38,11 +42,14 @@ class MealListFragment : Fragment() {
         val itemsType = object : TypeToken<List<Meal>>() {}.type
         val items : List<Meal> = Gson().fromJson(jsonString, itemsType)
 
-        val mainList : RecyclerView = view.findViewById(R.id.meal_fr_meals)
-        val mainListAdapter = MealBoxContentAdapter(items, MealDetailsListener(this.requireContext()))
+        recyclerView = view.findViewById(R.id.meal_fr_meals)
+        adapter = MealBoxContentAdapter(items, MealDetailsListener(this.requireContext()))
 
-        mainList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        mainList.adapter = mainListAdapter
+        if(recyclerView != null) {
+            recyclerView!!.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerView!!.adapter = adapter
+        }
     }
 
     /**
@@ -54,6 +61,10 @@ class MealListFragment : Fragment() {
             (view?.findViewById<RecyclerView>(R.id.meal_fr_meals)?.adapter ?: return) as MealBoxContentAdapter
 
         adapter.notifyDataSetChanged()
+    }
+
+    fun filter(filter: String){
+        adapter?.filter(filter)
     }
 
 }

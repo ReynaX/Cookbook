@@ -45,7 +45,6 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
             timerNameView = view.findViewById(R.id.timer_layout_tv_title)
             timerValueView = view.findViewById(R.id.timer_layout_tv_value)
             timerProgressView = view.findViewById(R.id.timer_layout_pb_value)
-
             this.context = context
         }
 
@@ -76,6 +75,7 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
             stopButton.setOnClickListener {
                 if (observableTimer.isTimerRunning()) {
                     observableTimer.stopTimer()
+                    resetObservableValues()
                 }
             }
 
@@ -127,11 +127,11 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
                 val inflater = LayoutInflater.from(context)
                 val view = inflater.inflate(R.layout.layout_timer_name_picker, null)
                 val nameView = view.findViewById<EditText>(R.id.timer_tv_name_picker)
-
                 nameView.setText(timerNameView.text)
 
                 val dialog = AlertDialog.Builder(context).setTitle("Wybierz nazwę").setView(view)
                     .setPositiveButton("Wybierz nazwę") { _, _ ->
+                        nameView.clearComposingText()
                         timerNameView.text = nameView.text
                     }.setNegativeButton("Anuluj", null).create()
                 dialog.show()
@@ -154,6 +154,13 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
             timerProgressView.progress = observableTimer.getProgress()
             timerProgressView.max = observableTimer.getMaxProgress()
         }
+
+        private fun resetObservableValues(){
+            timerValueView.text = "00:00:00"
+            timerProgressView.progress = 0
+            timerProgressView.max = 100
+        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -16,6 +16,6 @@
     <string name="details_fragment">Szczegóły</string>
     <string name="timers_fragment">Minutniki</string>
 
-    <string name="timer_default_name">Timer</string>
+    <string name="timer_default_name">Minutnik</string>
     <string name="timer_default_value">00:00:00</string>
 </resources>

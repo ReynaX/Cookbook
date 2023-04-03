@@ -83,6 +83,9 @@ class ObservableTimer {
     fun stopTimer() {
         state = TimerState.STOPPED
         value = "00:00:00"
+        start = 0
+        secondsPassed = 0
+        progress = 0
         countDownTimer.cancel()
     }
 

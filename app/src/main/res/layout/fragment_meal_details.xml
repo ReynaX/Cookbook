@@ -96,6 +96,19 @@
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/details_fr_tv_ingriedents" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/details_fr_fab_send_ingredients"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/details_fr_tv_ingriedents"
+            app:layout_constraintTop_toBottomOf="@id/details_fr_tv_diet"
+            app:layout_constraintBottom_toTopOf="@id/details_fr_fab_send_ingredients"
+            app:srcCompat="@drawable/baseline_send_to_mobile" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

@@ -1,5 +1,6 @@
 package pl.mobilne.projekt.data
 
+import android.util.Log
 import com.google.gson.annotations.SerializedName
 
 data class Meal(
@@ -29,5 +30,12 @@ data class Meal(
     val ingredients : List<String>,
     @SerializedName("recipe")
     val recipe : String
-) {
+){
+    override fun toString(): String {
+        val builder = StringBuilder()
+        builder.append("${name.lowercase()} ${description.lowercase()}")
+        categories?.let { builder.append(categories.joinToString(separator = " ", transform = {str -> str.lowercase()})) }
+        ingredients.let { builder.append(ingredients.joinToString(separator = " ", transform = {str -> str.lowercase()})) }
+        return builder.toString()
+    }
 }

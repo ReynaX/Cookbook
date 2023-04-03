@@ -7,10 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.text.HtmlCompat
 
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import pl.mobilne.projekt.R
 
 class MealDetailsFragment : Fragment() {
@@ -36,6 +38,11 @@ class MealDetailsFragment : Fragment() {
         initBakeTime(view, extras.getString("bake_time"))
         initRecipe(view, extras.getString("recipe"))
         extras.getString("details_image_path")?.let { initImage(view, it) }
+
+        val sendIngredientsButton = view.findViewById<FloatingActionButton>(R.id.details_fr_fab_send_ingredients)
+        sendIngredientsButton.setOnClickListener {
+            Toast.makeText(this.context, "Składniki wysłano do ...", Toast.LENGTH_LONG).show()
+        }
         return view
     }
 

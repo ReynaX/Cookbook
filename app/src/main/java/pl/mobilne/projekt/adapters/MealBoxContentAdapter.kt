@@ -5,18 +5,18 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pl.mobilne.projekt.R
 import pl.mobilne.projekt.data.Meal
 import pl.mobilne.projekt.listeners.OnItemClickListener
+import kotlin.streams.toList
 
 
 class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemClickListener) :
     RecyclerView.Adapter<MealBoxContentAdapter.ViewHolder>() {
+    var filteredItemList = items
 
     class ViewHolder(view: View, context: Context) : RecyclerView.ViewHolder(view) {
         private val title: TextView
@@ -103,12 +103,17 @@ class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemC
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return filteredItemList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = items[position]
+        val item = filteredItemList[position]
         holder.bind(item, listener);
         holder.setImageSize()
+    }
+
+    fun filter(query: String) {
+        filteredItemList = items.stream().filter{it.toString().contains(query)}.toList()
+        notifyDataSetChanged()
     }
 }
