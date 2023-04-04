@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -46,8 +47,8 @@ class MealListFragment : Fragment() {
         adapter = MealBoxContentAdapter(items, MealDetailsListener(this.requireContext()))
 
         if(recyclerView != null) {
-            recyclerView!!.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerView!!.layoutManager = GridLayoutManager(requireContext(), 1)
+//                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             recyclerView!!.adapter = adapter
         }
     }
@@ -57,10 +58,7 @@ class MealListFragment : Fragment() {
      */
     @SuppressLint("NotifyDataSetChanged")
     fun onOrientationChanged(){
-        val adapter : MealBoxContentAdapter =
-            (view?.findViewById<RecyclerView>(R.id.meal_fr_meals)?.adapter ?: return) as MealBoxContentAdapter
-
-        adapter.notifyDataSetChanged()
+        adapter?.notifyDataSetChanged()
     }
 
     fun filter(filter: String){

@@ -3,9 +3,14 @@ package pl.mobilne.projekt.adapters
 import android.content.Context
 import android.os.Build
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.*
+import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
+import androidx.core.view.marginBottom
+import androidx.core.view.marginTop
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import pl.mobilne.projekt.R
@@ -65,31 +70,57 @@ class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemC
                     (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager?)!!.defaultDisplay
                 display.getMetrics(displayMetrics)
             }
-            val thirdScreenWidth = displayMetrics.widthPixels / 3
+            this.title.measure(0, 0)
+            val screenWidth = displayMetrics.widthPixels
+            val viewWidth = Math.min(screenWidth, 800)
+            val spanCount = screenWidth / viewWidth
 
-            this.image.layoutParams = ViewGroup.LayoutParams(thirdScreenWidth, thirdScreenWidth)
-            this.itemView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, thirdScreenWidth)
+            val imageSize: Int = if (spanCount <= 1) screenWidth / 3 else screenWidth / 6
+
+            this.image.layoutParams = ViewGroup.LayoutParams(imageSize, imageSize)
+            this.itemView.layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, imageSize)
 
             // Assign listener to description text view so that when orientation changes, listener
             // will execute until the proper measurements(width, height) get calculated
-            this.description.viewTreeObserver
-                .addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
-                    override fun onGlobalLayout() {
-                        if (description.lineCount > 1) {
+            this.description.viewTreeObserver.addOnGlobalLayoutListener(object :
+                OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    description.post {
+                        if (description.lineCount >= 1) {
                             description.viewTreeObserver.removeOnGlobalLayoutListener(this)
-
-                            val remainingHeight = thirdScreenWidth - getOtherViewsHeight()
+                            val remainingHeight = imageSize - getOtherViewsHeight()
+                            Log.d("Description", getOtherViewsHeight().toString())
                             if (remainingHeight > 0) {
                                 val lineHeight = description.lineHeight
                                 val maxLines = remainingHeight / lineHeight
-                                description.maxLines = maxLines - 1
+                                description.maxLines = Math.max(maxLines - 1, 0)
+                            } else {
+                                description.maxLines = 0
                             }
                         }
                     }
-                })
+                }
+            })
+
+            this.itemView.viewTreeObserver.addOnGlobalLayoutListener(object :
+                OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (itemView.parent != null) {
+                        itemView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+
+                        val recyclerView = itemView.parent as RecyclerView
+                        val layoutManager = recyclerView.layoutManager as? GridLayoutManager
+                        layoutManager?.let {
+                            it.spanCount = Math.max(spanCount, 1)
+                        }
+                    }
+                }
+            })
         }
 
         private fun getOtherViewsHeight(): Int {
+            this.itemView.measure(0, 0)
             return servings.lineHeight * servings.lineCount +
                     categories.lineHeight * categories.lineCount +
                     title.lineHeight * title.lineCount
@@ -113,7 +144,7 @@ class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemC
     }
 
     fun filter(query: String) {
-        filteredItemList = items.stream().filter{it.toString().contains(query)}.toList()
+        filteredItemList = items.stream().filter { it.toString().contains(query) }.toList()
         notifyDataSetChanged()
     }
 }
