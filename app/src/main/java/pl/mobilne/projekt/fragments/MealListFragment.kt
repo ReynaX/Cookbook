@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout.Tab
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import pl.mobilne.projekt.R
@@ -20,6 +22,7 @@ import java.io.IOException
 class MealListFragment : Fragment() {
 
     private var recyclerView: RecyclerView? = null;
+    private var tabLayout: TabLayout? = null
     private var adapter: MealBoxContentAdapter? = null
 
     override fun onCreateView(
@@ -30,6 +33,21 @@ class MealListFragment : Fragment() {
 
         val view : View = inflater.inflate(R.layout.fragment_meal_list, container, false)
         initMealList(view)
+        tabLayout = view.findViewById(R.id.meal_tl_tab)
+        tabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabSelected(tab: Tab) {
+                // That's terrible!!!
+                if(tab.text == "Wszystkie")
+                    adapter?.filterByCuisine("")
+                else if(tab.text == "Polskie")
+                    adapter?.filterByCuisine("polish")
+                else if(tab.text == "Zagraniczne")
+                    adapter?.filterByCuisine("foreign")
+            }
+
+            override fun onTabUnselected(tab: Tab) {}
+            override fun onTabReselected(tab: Tab) {}
+        })
         return view
     }
 

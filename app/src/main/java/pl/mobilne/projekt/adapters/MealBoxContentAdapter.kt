@@ -5,11 +5,8 @@ import android.os.Build
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
-import android.view.ViewGroup.LayoutParams
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.*
-import androidx.core.view.marginBottom
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -19,9 +16,10 @@ import pl.mobilne.projekt.listeners.OnItemClickListener
 import kotlin.streams.toList
 
 
-class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemClickListener) :
+class MealBoxContentAdapter(private val items: List<Meal>, private val listener: OnItemClickListener):
     RecyclerView.Adapter<MealBoxContentAdapter.ViewHolder>() {
-    var filteredItemList = items
+    private var filteredItemList = items
+
 
     class ViewHolder(view: View, context: Context) : RecyclerView.ViewHolder(view) {
         private val title: TextView
@@ -94,7 +92,7 @@ class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemC
                             if (remainingHeight > 0) {
                                 val lineHeight = description.lineHeight
                                 val maxLines = remainingHeight / lineHeight
-                                description.maxLines = Math.max(maxLines - 1, 0)
+                                description.maxLines = Math.max(maxLines - 1 - (title.lineCount - 1) , 0)
                             } else {
                                 description.maxLines = 0
                             }
@@ -145,6 +143,13 @@ class MealBoxContentAdapter(private val items: List<Meal>, var listener: OnItemC
 
     fun filter(query: String) {
         filteredItemList = items.stream().filter { it.toString().contains(query) }.toList()
+        notifyDataSetChanged()
+    }
+
+    fun filterByCuisine(query: String){
+        filteredItemList = if(query.isNullOrEmpty())
+            items
+        else items.stream().filter{it.cuisine == query}.toList()
         notifyDataSetChanged()
     }
 }

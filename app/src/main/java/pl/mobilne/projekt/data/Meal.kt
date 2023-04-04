@@ -29,7 +29,9 @@ data class Meal(
     @SerializedName("ingredients")
     val ingredients : List<String>,
     @SerializedName("recipe")
-    val recipe : String
+    val recipe : String,
+    @SerializedName("cuisine")
+    val cuisine: String
 ){
     override fun toString(): String {
         val builder = StringBuilder()

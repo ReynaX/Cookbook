@@ -133,6 +133,7 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
                     .setPositiveButton("Wybierz nazwę") { _, _ ->
                         nameView.clearComposingText()
                         timerNameView.text = nameView.text
+                        observableTimer.setTimerName(timerNameView.text.toString())
                     }.setNegativeButton("Anuluj", null).create()
                 dialog.show()
             }

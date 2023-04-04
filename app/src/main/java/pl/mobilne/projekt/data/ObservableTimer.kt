@@ -65,6 +65,7 @@ class ObservableTimer {
                 notifyObservers()
                 Log.d("Timer", "Finished")
                 TimerUtil.vibrate(context)
+                TimerUtil.sendNotification(context, name, name)
             }
         }
         countDownTimer.start()
