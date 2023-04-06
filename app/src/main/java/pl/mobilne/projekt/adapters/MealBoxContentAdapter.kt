@@ -92,7 +92,7 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
                             if (remainingHeight > 0) {
                                 val lineHeight = description.lineHeight
                                 val maxLines = remainingHeight / lineHeight
-                                description.maxLines = Math.max(maxLines - 1 - (title.lineCount - 1) , 0)
+                                description.maxLines = Math.max(maxLines - 1, 0)
                             } else {
                                 description.maxLines = 0
                             }
