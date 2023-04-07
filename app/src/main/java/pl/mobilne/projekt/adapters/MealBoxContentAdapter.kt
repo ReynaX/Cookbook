@@ -90,10 +90,12 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
                             description.viewTreeObserver.removeOnGlobalLayoutListener(this)
                             val remainingHeight = imageSize - getOtherViewsHeight()
                             Log.d("Description", getOtherViewsHeight().toString())
+                            Log.d("Height", remainingHeight.toString())
                             if (remainingHeight > 0) {
                                 val lineHeight = description.lineHeight
                                 val maxLines = remainingHeight / lineHeight
-                                description.maxLines = (maxLines - 1).coerceAtLeast(0)
+                                Log.d("Max lines", maxLines.toString())
+                                description.maxLines = (maxLines).coerceAtLeast(0)
                             } else {
                                 description.maxLines = 0
                             }
@@ -121,9 +123,7 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
 
         private fun getOtherViewsHeight(): Int {
             this.itemView.measure(0, 0)
-            return servings.lineHeight * servings.lineCount +
-                    categories.lineHeight * categories.lineCount +
-                    title.lineHeight * title.lineCount
+            return servings.height + title.height + categories.height
         }
     }
 
