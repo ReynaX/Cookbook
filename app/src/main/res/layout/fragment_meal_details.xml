@@ -20,7 +20,8 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars"
             android:scaleType="centerCrop"
-            android:adjustViewBounds="true"/>
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/image_details_content_desc" />
 
         <TextView
             android:id="@+id/details_fr_tv_title"
@@ -110,7 +111,8 @@
             app:layout_constraintStart_toEndOf="@id/details_fr_tv_ingriedents"
             app:layout_constraintTop_toBottomOf="@id/details_fr_tv_diet"
             app:layout_constraintBottom_toTopOf="@id/details_fr_fab_send_ingredients"
-            app:srcCompat="@drawable/baseline_send_to_mobile" />
+            app:srcCompat="@drawable/baseline_send_to_mobile"
+            android:contentDescription="@string/button_details_send_ingredients" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

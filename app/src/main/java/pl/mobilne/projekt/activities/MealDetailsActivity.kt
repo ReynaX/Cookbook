@@ -1,9 +1,8 @@
 package pl.mobilne.projekt.activities
 
+import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.GestureDetector
 import android.view.Menu
 import android.view.MenuItem
@@ -42,6 +41,7 @@ class MealDetailsActivity : AppCompatActivity(), GestureDetector.OnGestureListen
         supportFragmentManager.beginTransaction().add(R.id.details_cl_main_layout, detailsFragment).commit()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         timersAdapter.notifyDataSetChanged()

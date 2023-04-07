@@ -1,6 +1,5 @@
 package pl.mobilne.projekt.data
 
-import android.util.Log
 import com.google.gson.annotations.SerializedName
 
 data class Meal(

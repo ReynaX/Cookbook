@@ -2,11 +2,9 @@ package pl.mobilne.projekt.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,21 +12,16 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.Tab
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
-import com.google.firebase.database.ktx.snapshots
 import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
-import org.json.JSONArray
 import pl.mobilne.projekt.R
 import pl.mobilne.projekt.adapters.MealBoxContentAdapter
 import pl.mobilne.projekt.data.Meal
 import pl.mobilne.projekt.listeners.MealDetailsListener
-import java.io.IOException
 
 class MealListFragment : Fragment() {
 
-    private var recyclerView: RecyclerView? = null;
+    private var recyclerView: RecyclerView? = null
     private var tabLayout: TabLayout? = null
     private var adapter: MealBoxContentAdapter? = null
     private lateinit var databaseReference: DatabaseReference

@@ -26,7 +26,7 @@ class ObservableTimer {
     }
 
     private var context: Context
-    private var value: String;
+    private var value: String
     private var progress: Int
     private var state = TimerState.STOPPED
     private var start = 0L

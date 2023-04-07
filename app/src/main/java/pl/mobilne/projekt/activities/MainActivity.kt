@@ -3,7 +3,6 @@ package pl.mobilne.projekt.activities
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import pl.mobilne.projekt.R

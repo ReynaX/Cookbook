@@ -15,7 +15,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:backgroundTint="#03dac5"
-        app:srcCompat="@drawable/baseline_add" />
+        app:srcCompat="@drawable/baseline_add"
+        android:contentDescription="@string/button_timer_add_content_desc" />
 
     <TextView
         android:id="@+id/timer_fr_tv_no_timers"
