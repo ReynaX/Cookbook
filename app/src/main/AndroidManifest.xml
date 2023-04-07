@@ -18,6 +18,7 @@
             android:name=".activities.MealDetailsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustNothing"
+            android:configChanges="orientation|screenSize"
             />
         <activity
             android:name=".activities.MainActivity"

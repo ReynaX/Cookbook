@@ -1,6 +1,8 @@
 package pl.mobilne.projekt.activities
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.view.GestureDetector
 import android.view.Menu
@@ -38,6 +40,11 @@ class MealDetailsActivity : AppCompatActivity(), GestureDetector.OnGestureListen
         gestureDetector = GestureDetector(applicationContext, this)
         timersAdapter = TimersAdapter(mutableListOf(), this.applicationContext)
         supportFragmentManager.beginTransaction().add(R.id.details_cl_main_layout, detailsFragment).commit()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        timersAdapter.notifyDataSetChanged()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

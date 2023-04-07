@@ -8,7 +8,7 @@ import pl.mobilne.projekt.data.Meal
 class MealDetailsListener(private val context : Context) : OnItemClickListener {
     override fun onItemClick(meal: Meal) {
         val intent = Intent(context, MealDetailsActivity::class.java)
-
+        // Should have been Serializable(but it works :-)
         intent.putExtra("name", meal.name)
         intent.putExtra("servings", meal.servings)
         intent.putExtra("prepare_time", meal.prepareTime)
