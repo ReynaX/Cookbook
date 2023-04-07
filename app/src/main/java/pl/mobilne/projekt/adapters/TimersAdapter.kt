@@ -92,7 +92,6 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
                 timerValueListener()
             }
 
-            // Show dialog with edittext view to change name of timer
             timerNameView.setOnClickListener {
                 timerNameListener(observableTimer)
             }

@@ -35,16 +35,14 @@ class MealListFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_meal_list, container, false)
         initMealList(view)
         tabLayout = view.findViewById(R.id.meal_tl_tab)
+        val res = requireContext().resources
         tabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: Tab) {
-                // That's terrible!!!
-                if (tab.text == "Wszystkie")
-                    adapter?.filterByCuisine("")
-                else if (tab.text == "Polskie")
-                    adapter?.filterByCuisine("polish")
-                else if (tab.text == "Zagraniczne")
-                    adapter?.filterByCuisine("foreign")
-
+                when (tab.text) {
+                    res.getString(R.string.meal_list_all_text) -> adapter?.filterByCuisine("")
+                    res.getString(R.string.meal_list_polish_text) -> adapter?.filterByCuisine("polish")
+                    res.getString(R.string.meal_list_foreign_text) -> adapter?.filterByCuisine("foreign")
+                }
             }
 
             override fun onTabUnselected(tab: Tab) {}

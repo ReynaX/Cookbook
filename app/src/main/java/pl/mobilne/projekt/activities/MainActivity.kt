@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
         fragment.onOrientationChanged()
     }
 
+    /**
+     * Setup menu and listener to search view to filter data in list of meals based on
+     * given query.
+     */
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.search_menu, menu)
 

@@ -53,9 +53,14 @@ class MealDetailsActivity : AppCompatActivity(), GestureDetector.OnGestureListen
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Controller for toolbar buttons to swap between fragments inside an activity or
+     * to finish the activity.
+     */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         if (id == R.id.details_menu_change_fr) {
+            // Load the other fragment
             if(fragmentLoaded == FragmentLoaded.DETAILS) {
                 timerFragment.setAdapter(timersAdapter)
                 supportFragmentManager.beginTransaction()
@@ -104,6 +109,9 @@ class MealDetailsActivity : AppCompatActivity(), GestureDetector.OnGestureListen
     override fun onLongPress(p0: MotionEvent) {
     }
 
+    /**
+     * Swap between fragments inside activity on right swipe and finish the activity on left swipe.
+     */
     override fun onFling(p0: MotionEvent, p1: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
         val swipeThreshold = 125
         val swipeVelocityThreshold = 400

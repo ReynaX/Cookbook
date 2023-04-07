@@ -39,10 +39,10 @@ class TimerUtil {
             channel.description = "YOUR_NOTIFICATION_CHANNEL_DESCRIPTION"
             mNotificationManager.createNotificationChannel(channel)
             val mBuilder = NotificationCompat.Builder(context, "TIMER NOTIFICATION")
-                .setSmallIcon(R.mipmap.ic_launcher) // notification icon
-                .setContentTitle(title) // title for notification
-                .setContentText(text)// message for notification
-                .setAutoCancel(true) // clear notification after click
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setAutoCancel(true)
             mNotificationManager.notify(0, mBuilder.build())
         }
     }

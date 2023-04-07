@@ -102,6 +102,7 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
                 }
             })
 
+            // Setup number of rows/columns of GridLayout inside RecyclerView
             this.itemView.viewTreeObserver.addOnGlobalLayoutListener(object :
                 OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
