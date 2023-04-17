@@ -12,14 +12,12 @@ import pl.mobilne.projekt.R
 
 class TimerUtil {
     companion object Instance {
-        private var vibrationsCount = 5
-        private var vibrationsLength = 1000L
-        fun vibrate(context: Context) {
+        fun vibrate(context: Context, count: Int, length: Long) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 val vibratorManager =
                     context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
                 val vibrationEffect = VibrationEffect.createWaveform(
-                    LongArray(vibrationsCount) { vibrationsLength * it },
+                    LongArray(count) { length * it },
                     VibrationEffect.DEFAULT_AMPLITUDE
                 )
                 vibratorManager.defaultVibrator.vibrate(vibrationEffect)
@@ -27,7 +25,7 @@ class TimerUtil {
                 @Suppress("DEPRECATION")
                 val vib = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
                 @Suppress("DEPRECATION")
-                vib.vibrate(5000)
+                vib.vibrate(length * count)
             }
         }
 

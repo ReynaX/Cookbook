@@ -54,6 +54,9 @@ class ObservableTimer {
                 value =
                     ("${format.format(hours)}:${format.format(minutes)}:${format.format(seconds)}")
                 secondsPassed++
+                if((start - secondsPassed).toInt() % (start / 5000).toInt() == 0){
+                    TimerUtil.vibrate(context, 1, 1000L)
+                }
                 notifyObservers()
             }
 
@@ -64,7 +67,7 @@ class ObservableTimer {
                 progress = 0
                 notifyObservers()
                 Log.d("Timer", "Finished")
-                TimerUtil.vibrate(context)
+                TimerUtil.vibrate(context, 5, 1000L)
                 TimerUtil.sendNotification(context, name, name)
             }
         }

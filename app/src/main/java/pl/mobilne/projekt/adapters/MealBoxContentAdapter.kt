@@ -1,5 +1,6 @@
 package pl.mobilne.projekt.adapters
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
@@ -7,6 +8,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
+import android.view.animation.OvershootInterpolator
 import android.widget.*
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,10 +19,12 @@ import pl.mobilne.projekt.listeners.OnItemClickListener
 import kotlin.streams.toList
 
 
-class MealBoxContentAdapter(private val items: List<Meal>, private val listener: OnItemClickListener):
+class MealBoxContentAdapter(
+    private val items: List<Meal>,
+    private val listener: OnItemClickListener
+) :
     RecyclerView.Adapter<MealBoxContentAdapter.ViewHolder>() {
     private var filteredItemList = items
-
 
     class ViewHolder(view: View, context: Context) : RecyclerView.ViewHolder(view) {
         private val title: TextView
@@ -116,6 +120,7 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
                         layoutManager?.let {
                             it.spanCount = spanCount.coerceAtLeast(1)
                         }
+                        startAnimation(spanCount.coerceAtLeast(1));
                     }
                 }
             })
@@ -124,6 +129,17 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
         private fun getOtherViewsHeight(): Int {
             this.itemView.measure(0, 0)
             return servings.height + title.height + categories.height
+        }
+
+        private fun startAnimation(spanCount : Int){
+            val cellWidth = itemView.width / spanCount.toFloat()
+            itemView.translationX = -cellWidth
+            ObjectAnimator.ofFloat(itemView, "translationX", 0.0f).apply {
+                duration = 1500
+                startDelay = (position * 150).toLong()
+                interpolator = OvershootInterpolator()
+                start()
+            }
         }
     }
 
@@ -150,10 +166,10 @@ class MealBoxContentAdapter(private val items: List<Meal>, private val listener:
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filterByCuisine(query: String){
-        filteredItemList = if(query.isEmpty())
+    fun filterByCuisine(query: String) {
+        filteredItemList = if (query.isEmpty())
             items
-        else items.stream().filter{it.cuisine == query}.toList()
+        else items.stream().filter { it.cuisine == query }.toList()
         notifyDataSetChanged()
     }
 }
