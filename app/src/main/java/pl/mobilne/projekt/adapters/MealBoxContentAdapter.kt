@@ -25,6 +25,7 @@ class MealBoxContentAdapter(
 ) :
     RecyclerView.Adapter<MealBoxContentAdapter.ViewHolder>() {
     private var filteredItemList = items
+    private var orientationChanged = true
 
     class ViewHolder(view: View, context: Context) : RecyclerView.ViewHolder(view) {
         private val title: TextView
@@ -63,7 +64,7 @@ class MealBoxContentAdapter(
         }
 
         @Suppress("DEPRECATION")
-        fun setImageSize() {
+        fun setImageSize(animate : Boolean) {
             val displayMetrics = DisplayMetrics()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -120,7 +121,8 @@ class MealBoxContentAdapter(
                         layoutManager?.let {
                             it.spanCount = spanCount.coerceAtLeast(1)
                         }
-                        startAnimation(spanCount.coerceAtLeast(1));
+                        if(animate)
+                            startAnimation(spanCount.coerceAtLeast(1));
                     }
                 }
             })
@@ -133,7 +135,7 @@ class MealBoxContentAdapter(
 
         private fun startAnimation(spanCount : Int){
             val cellWidth = itemView.width / spanCount.toFloat()
-            itemView.translationX = -cellWidth
+            itemView.translationX = -cellWidth * ((adapterPosition % spanCount) + 1)
             ObjectAnimator.ofFloat(itemView, "translationX", 0.0f).apply {
                 duration = 1500
                 startDelay = (position * 150).toLong()
@@ -156,12 +158,13 @@ class MealBoxContentAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = filteredItemList[position]
         holder.bind(item, listener)
-        holder.setImageSize()
+        holder.setImageSize(orientationChanged)
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun filter(query: String) {
         filteredItemList = items.stream().filter { it.toString().contains(query) }.toList()
+        orientationChanged = false
         notifyDataSetChanged()
     }
 
@@ -170,6 +173,12 @@ class MealBoxContentAdapter(
         filteredItemList = if (query.isEmpty())
             items
         else items.stream().filter { it.cuisine == query }.toList()
+        orientationChanged = true
+        notifyDataSetChanged()
+    }
+
+    fun onOrientationChanged(){
+        orientationChanged = true
         notifyDataSetChanged()
     }
 }

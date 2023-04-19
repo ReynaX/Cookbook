@@ -86,7 +86,7 @@ class MealListFragment : Fragment() {
      */
     @SuppressLint("NotifyDataSetChanged")
     fun onOrientationChanged() {
-        adapter?.notifyDataSetChanged()
+        adapter?.onOrientationChanged();
     }
 
     fun filter(filter: String) {

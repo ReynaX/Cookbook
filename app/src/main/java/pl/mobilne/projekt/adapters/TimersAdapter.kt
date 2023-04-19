@@ -80,7 +80,7 @@ class TimersAdapter(private var items: MutableList<ObservableTimer>, private val
             }
 
             stopButton.setOnClickListener {
-                if (observableTimer.isTimerRunning()) {
+                if (!observableTimer.isTimerStopped()) {
                     observableTimer.stopTimer()
                     resetObservableValues()
                 }
